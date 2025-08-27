@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Methods | ACRES Synthetic Population</title>
+  <meta name="description" content="Code and methods for reproducing synthetic population work from ’A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations`" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Methods | ACRES Synthetic Population" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Code and methods for reproducing synthetic population work from ’A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations`" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Methods | ACRES Synthetic Population" />
+  
+  <meta name="twitter:description" content="Code and methods for reproducing synthetic population work from ’A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations`" />
+  
+
+
+
+<meta name="date" content="2025-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="literature.html"/>
+<link rel="next" href="application.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ACRES Synthetic Population</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations</a></li>
+<li class="chapter" data-level="2" data-path="prerequisites.html"><a href="prerequisites.html"><i class="fa fa-check"></i><b>2</b> Prerequisites</a></li>
+<li class="chapter" data-level="3" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intro.html"><a href="intro.html#project-objectives"><i class="fa fa-check"></i><b>3.1</b> Project Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="intro.html"><a href="intro.html#previous-work-from-busph"><i class="fa fa-check"></i><b>3.2</b> Previous work from BUSPH</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>4</b> Literature</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="literature.html"><a href="literature.html#popgen"><i class="fa fa-check"></i><b>4.1</b> PopGen</a></li>
+<li class="chapter" data-level="4.2" data-path="literature.html"><a href="literature.html#popsynwin"><i class="fa fa-check"></i><b>4.2</b> PopSynWin</a></li>
+<li class="chapter" data-level="4.3" data-path="literature.html"><a href="literature.html#synthpop-r"><i class="fa fa-check"></i><b>4.3</b> synthpop R</a></li>
+<li class="chapter" data-level="4.4" data-path="literature.html"><a href="literature.html#simpop-r"><i class="fa fa-check"></i><b>4.4</b> simPop R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>5</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="methods.html"><a href="methods.html#geographic-area"><i class="fa fa-check"></i><b>5.1</b> Geographic area</a></li>
+<li class="chapter" data-level="5.2" data-path="methods.html"><a href="methods.html#acs-constraint-tables"><i class="fa fa-check"></i><b>5.2</b> ACS constraint tables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="methods.html"><a href="methods.html#raceethnicity"><i class="fa fa-check"></i><b>5.2.1</b> Race/Ethnicity</a></li>
+<li class="chapter" data-level="5.2.2" data-path="methods.html"><a href="methods.html#sex-and-age"><i class="fa fa-check"></i><b>5.2.2</b> Sex and Age</a></li>
+<li class="chapter" data-level="5.2.3" data-path="methods.html"><a href="methods.html#education"><i class="fa fa-check"></i><b>5.2.3</b> Education</a></li>
+<li class="chapter" data-level="5.2.4" data-path="methods.html"><a href="methods.html#householder-age-and-household-income"><i class="fa fa-check"></i><b>5.2.4</b> Householder Age and Household Income</a></li>
+<li class="chapter" data-level="5.2.5" data-path="methods.html"><a href="methods.html#householder-age-and-tenure"><i class="fa fa-check"></i><b>5.2.5</b> Householder Age and Tenure</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="methods.html"><a href="methods.html#pums-data"><i class="fa fa-check"></i><b>5.3</b> PUMS data</a></li>
+<li class="chapter" data-level="5.4" data-path="methods.html"><a href="methods.html#acs-and-pums-mapping"><i class="fa fa-check"></i><b>5.4</b> ACS and PUMS Mapping</a></li>
+<li class="chapter" data-level="5.5" data-path="methods.html"><a href="methods.html#the-code"><i class="fa fa-check"></i><b>5.5</b> The Code:</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="methods.html"><a href="methods.html#puma-data"><i class="fa fa-check"></i><b>5.5.1</b> 1. PUMA data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="methods.html"><a href="methods.html#prepare-acs-data-for-co-model"><i class="fa fa-check"></i><b>5.5.2</b> 2. Prepare ACS data for CO model</a></li>
+<li class="chapter" data-level="5.5.3" data-path="methods.html"><a href="methods.html#bring-into-the-co-model"><i class="fa fa-check"></i><b>5.5.3</b> 3. Bring into the CO model</a></li>
+<li class="chapter" data-level="5.5.4" data-path="methods.html"><a href="methods.html#create-parcel-level-synthetic-population"><i class="fa fa-check"></i><b>5.5.4</b> 4. Create parcel-level synthetic population</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> Application</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#use-case-proximity-to-major-roadway"><i class="fa fa-check"></i><b>6.1</b> Use-case: proximity to major roadway</a></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#hypothetical-health-impact-assessment"><i class="fa fa-check"></i><b>6.2</b> Hypothetical health impact assessment</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ACRES Synthetic Population</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="methods" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Methods<a href="methods.html#methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>To generate synthetic populations for each Public Use Microdata Area
+(PUMA) contained within the Mystic River Watershed area, we used a
+combination of coding languages (R version 4.2.2 (2022-10-31) and
+Fortran) and a combination of datasets to generate PUMA-specific
+constraint tables. Note that the geographic resolution used for these
+methods is the census tract level.</p>
+<div class="figure"><span style="display:block;" id="fig:methods-image"></span>
+<img src="images/methods-image.png" alt="Using PUMA and ACS to Generate a Synthetic Population" width="700" />
+<p class="caption">
+Figure 5.1: Using PUMA and ACS to Generate a Synthetic Population
+</p>
+</div>
+<p><strong>OVERVIEW:</strong></p>
+<p>Obtaining the datasets required:</p>
+<ol style="list-style-type: decimal">
+<li>Creating lists of census tracts located in each of the 10 PUMAs
+using R</li>
+<li>Pulling ACS census tract data for each of the 10 PUMA sets of census
+tracts using R</li>
+<li>Pulling the Public Use Microdata Samples for each PUMA, including
+person and household variables</li>
+</ol>
+<p>The datasets are then cleaned:</p>
+<ol style="list-style-type: decimal">
+<li>ACS dataset are cleaned and combined in R (with separate runs for
+each PUMA)</li>
+<li>PUMS data is cleaned and combined in R (with separate runs for each
+PUMA)</li>
+</ol>
+<p>N.B. (1) and (2) above generate output textfiles which can then be read
+into and implemented in the CO model, which is written in Fortran.</p>
+<p>Update a few additional tables:</p>
+<ol style="list-style-type: decimal">
+<li>Constraining tables information textfile. This file is also an
+output file with parameters used to reflect different ancestry bins
+by PUMA.</li>
+<li>Control parameters file with PUMA name, number of constraint cells
+for that PUMA, and row below (number of constraint cells x 10).</li>
+</ol>
+<p>Run with <strong>CO_BU.exe</strong>, the executable created by compiling Fortran
+code.</p>
+<p>Read the resulting output from the CO work using R.</p>
+<div id="geographic-area" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Geographic area<a href="methods.html#geographic-area" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are 21 cities and towns included in the Mystic River Watershed
+area:</p>
+<ol style="list-style-type: decimal">
+<li>Burlington</li>
+<li>Lexington</li>
+<li>Belmont</li>
+<li>Watertown</li>
+<li>Arlington</li>
+<li>Winchester</li>
+<li>Woburn</li>
+<li>Reading</li>
+<li>Stoneham</li>
+<li>Medford</li>
+<li>Somerville</li>
+<li>Cambridge</li>
+<li>Boston (East Boston, Charlestown)</li>
+<li>Everett</li>
+<li>Malden</li>
+<li>Melrose</li>
+<li>Wakefield</li>
+<li>Chelsea</li>
+<li>Revere</li>
+<li>Winthrop</li>
+<li>Wilmington</li>
+</ol>
+</div>
+<div id="acs-constraint-tables" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> ACS constraint tables<a href="methods.html#acs-constraint-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ACS 5-year (2021) detailed estimates tables for Massachusetts census
+tracts were obtained.</p>
+<div id="raceethnicity" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Race/Ethnicity<a href="methods.html#raceethnicity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>B04006 <a href="https://data.census.gov/table?q=B0400&amp;g=040XX00US25&amp;tid=ACSDT1Y2021.B04006">People Reporting
+Ancestry</a>
+<ul>
+<li>Collapsed by town/city: all ancestry groups with more than 1% of
+the population represented are retained, those with less than 1%
+are collapsed to ‘other’</li>
+</ul></li>
+<li>B03001 <a href="https://data.census.gov/table?q=B03001&amp;g=040XX00US25,25$1400000">Hispanic or Latino by Specific
+Origin</a></li>
+</ul>
+<p>Note that ACS 5-year (2021) detailed estimates tables include People
+Reporting Single Ancestry, People Reporting Multiple Ancestry, and a
+combined table of both - People Reporting Ancestry (B04006, used here).
+In order to approximate the first-ancestry reported, as this is the
+ancestry included in the PUMS (see section below), we did some
+re-weighting of the B04006 table variables. In brief, this method was as
+follows:</p>
+<p>For a given PUMA (Public Use Microdata Area) in the set of 10 included
+PUMAs, and for each census tract within that PUMA, we re-weight all
+ancestry variables by proceeding across columns.</p>
+<p>If true total <span class="math inline">\(= total_{true}\)</span> and total with multiple ancestries
+<span class="math inline">\(= total_{obs}\)</span>, and observed population in a given ancestry column for
+that row <span class="math inline">\(= Z_{obs}\)</span>, then the re-weighted <span class="math inline">\(Z_{rw}\)</span> is</p>
+<p><span class="math display">\[
+  Z_{rw} = k*Z_{obs} = {\frac{total_{obs}}{total_{true}}}*Z_{obs}
+  \]</span> To round to whole units of persons, we use a probabilistic
+coin-toss methodology:</p>
+<p>Let the probability of rounding up be <span class="math inline">\(mod(Z_{rw},1)\)</span>.</p>
+<p>Using the ‘set.seed()’ function in R, generate a random number, <span class="math inline">\(P\)</span>,
+between 0 and 1.</p>
+<p>Then, the rounded number is:</p>
+<p><span class="math display">\[
+  Z_{rw-integer} = Z_{rw}-mod(Z_{rw},1)+P.
+  \]</span> This is helpful, except when the new total, <span class="math inline">\(total_{new}\)</span> no longer
+equals <span class="math inline">\(total_{true}\)</span>.To amend this, we apply a ‘fudge factor’: Rank all
+ancestry columns based on <span class="math inline">\(Z_{rw_integer}\)</span>. Based on the difference
+between <span class="math inline">\(total_{true}\)</span> and <span class="math inline">\(total_{new}\)</span>, we adjust the data as needed:</p>
+<p>If <span class="math inline">\(total_{new}-total_{true} = 0\)</span>, then do nothing.</p>
+<p>If <span class="math inline">\(total_{new}-total_{true} = total_{diff} &gt; 0\)</span>, remove 1 from each of
+the top <span class="math inline">\(n = total_{diff}\)</span> ranked ancestries.<br />
+If <span class="math inline">\(total_{new}-total_{true} = total_{diff} &lt; 0\)</span>, add 1 to each of the
+top <span class="math inline">\(n = total_{diff}\)</span> ranked ancestries.</p>
+<p>We keep ancestry variables where the proportion of the PUMA of that
+background equals or exceeds 1%. This means different ancestry variables
+were included for different PUMAs. The following table provides the list
+of included ancestries by PUMA.</p>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA01300 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 01300 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="even">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Greek</td>
+</tr>
+<tr class="odd">
+<td align="left">Irish</td>
+</tr>
+<tr class="even">
+<td align="left">Italian</td>
+</tr>
+<tr class="odd">
+<td align="left">Polish</td>
+</tr>
+<tr class="even">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish</td>
+</tr>
+<tr class="even">
+<td align="left">Swedish</td>
+</tr>
+<tr class="odd">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA03306 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 03306 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">Arab…Moroccan</td>
+</tr>
+<tr class="odd">
+<td align="left">Brazilian</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Irish</td>
+</tr>
+<tr class="odd">
+<td align="left">Italian</td>
+</tr>
+<tr class="even">
+<td align="left">Polish</td>
+</tr>
+<tr class="odd">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA00505 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 00505 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">Armenian</td>
+</tr>
+<tr class="odd">
+<td align="left">Eastern.European</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">European</td>
+</tr>
+<tr class="even">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="odd">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="even">
+<td align="left">German</td>
+</tr>
+<tr class="odd">
+<td align="left">Greek</td>
+</tr>
+<tr class="even">
+<td align="left">Irish</td>
+</tr>
+<tr class="odd">
+<td align="left">Italian</td>
+</tr>
+<tr class="even">
+<td align="left">Polish</td>
+</tr>
+<tr class="odd">
+<td align="left">Russian</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish</td>
+</tr>
+<tr class="odd">
+<td align="left">Swedish</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA03302 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 03302 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">European</td>
+</tr>
+<tr class="even">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="odd">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="even">
+<td align="left">German</td>
+</tr>
+<tr class="odd">
+<td align="left">Irish</td>
+</tr>
+<tr class="even">
+<td align="left">Italian</td>
+</tr>
+<tr class="odd">
+<td align="left">Polish</td>
+</tr>
+<tr class="even">
+<td align="left">Russian</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA00506 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 00506 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">British</td>
+</tr>
+<tr class="odd">
+<td align="left">Eastern.European</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">European</td>
+</tr>
+<tr class="even">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Irish</td>
+</tr>
+<tr class="odd">
+<td align="left">Italian</td>
+</tr>
+<tr class="even">
+<td align="left">Polish</td>
+</tr>
+<tr class="odd">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="even">
+<td align="left">Russian</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish</td>
+</tr>
+<tr class="even">
+<td align="left">Subsaharan.African…Ethiopian</td>
+</tr>
+<tr class="odd">
+<td align="left">Swedish</td>
+</tr>
+<tr class="even">
+<td align="left">West.Indian..except.Hispanic.groups….Haitian</td>
+</tr>
+<tr class="odd">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA00507 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 00507 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">Brazilian</td>
+</tr>
+<tr class="odd">
+<td align="left">English</td>
+</tr>
+<tr class="even">
+<td align="left">European</td>
+</tr>
+<tr class="odd">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="even">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Irish</td>
+</tr>
+<tr class="odd">
+<td align="left">Italian</td>
+</tr>
+<tr class="even">
+<td align="left">Polish</td>
+</tr>
+<tr class="odd">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="even">
+<td align="left">Russian</td>
+</tr>
+<tr class="odd">
+<td align="left">West.Indian..except.Hispanic.groups….Haitian</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA00508 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 00508 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">Brazilian</td>
+</tr>
+<tr class="odd">
+<td align="left">English</td>
+</tr>
+<tr class="even">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="odd">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="even">
+<td align="left">German</td>
+</tr>
+<tr class="odd">
+<td align="left">Irish</td>
+</tr>
+<tr class="even">
+<td align="left">Italian</td>
+</tr>
+<tr class="odd">
+<td align="left">Polish</td>
+</tr>
+<tr class="even">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="odd">
+<td align="left">Russian</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish</td>
+</tr>
+<tr class="odd">
+<td align="left">West.Indian..except.Hispanic.groups….Haitian</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA01000 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 01000 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="even">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Greek</td>
+</tr>
+<tr class="odd">
+<td align="left">Irish</td>
+</tr>
+<tr class="even">
+<td align="left">Italian</td>
+</tr>
+<tr class="odd">
+<td align="left">Polish</td>
+</tr>
+<tr class="even">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="odd">
+<td align="left">Russian</td>
+</tr>
+<tr class="even">
+<td align="left">Scottish</td>
+</tr>
+<tr class="odd">
+<td align="left">Swedish</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA02800 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 02800 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">English</td>
+</tr>
+<tr class="odd">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="even">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Greek</td>
+</tr>
+<tr class="odd">
+<td align="left">Irish</td>
+</tr>
+<tr class="even">
+<td align="left">Italian</td>
+</tr>
+<tr class="odd">
+<td align="left">Polish</td>
+</tr>
+<tr class="even">
+<td align="left">Portuguese</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish</td>
+</tr>
+<tr class="even">
+<td align="left">Swedish</td>
+</tr>
+<tr class="odd">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="even">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab0">Table 5.1: </span><strong>PUMA00503 Ancestry Mappings</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">PUMA 00503 Ancestries &gt;1% of Total Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">American</td>
+</tr>
+<tr class="even">
+<td align="left">Armenian</td>
+</tr>
+<tr class="odd">
+<td align="left">English</td>
+</tr>
+<tr class="even">
+<td align="left">European</td>
+</tr>
+<tr class="odd">
+<td align="left">French..except.Basque.</td>
+</tr>
+<tr class="even">
+<td align="left">French.Canadian</td>
+</tr>
+<tr class="odd">
+<td align="left">German</td>
+</tr>
+<tr class="even">
+<td align="left">Greek</td>
+</tr>
+<tr class="odd">
+<td align="left">Irish</td>
+</tr>
+<tr class="even">
+<td align="left">Italian</td>
+</tr>
+<tr class="odd">
+<td align="left">Polish</td>
+</tr>
+<tr class="even">
+<td align="left">Russian</td>
+</tr>
+<tr class="odd">
+<td align="left">Scottish</td>
+</tr>
+<tr class="even">
+<td align="left">Unclassified.or.not.reported</td>
+</tr>
+<tr class="odd">
+<td align="left">Other</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sex-and-age" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Sex and Age<a href="methods.html#sex-and-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>B01001 <a href="https://data.census.gov/table?q=B01001&amp;g=040XX00US25,25$1400000">Sex by
+Age</a></li>
+</ul>
+</div>
+<div id="education" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Education<a href="methods.html#education" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>B15001 <a href="https://data.census.gov/table?q=B15001&amp;g=040XX00US25,25$1400000">Sex by educational attainment for the population 18 years
+and
+over</a></li>
+</ul>
+</div>
+<div id="householder-age-and-household-income" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Householder Age and Household Income<a href="methods.html#householder-age-and-household-income" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>B19307 <a href="https://data.census.gov/table?q=B19037&amp;g=040XX00US25,25$1400000">Age of householder by household income in the past 12 months
+(2021 inflation-adjusted
+dollars)</a></li>
+</ul>
+</div>
+<div id="householder-age-and-tenure" class="section level3 hasAnchor" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> Householder Age and Tenure<a href="methods.html#householder-age-and-tenure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>B25007 <a href="https://data.census.gov/table?q=B25007&amp;g=040XX00US25,25$1400000">Tenure by Age of
+Householder</a></li>
+</ul>
+</div>
+</div>
+<div id="pums-data" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> PUMS data<a href="methods.html#pums-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ACS 5-year (2017-2021) Public Use Microdata Sample (PUMS) files for
+<em>person</em> data and for <em>household</em> data. These data sample approximately
+5% of individual responses to the ACS. Full documentation on this data
+is provided in the <a href="https://www2.census.gov/programs-surveys/acs/tech_docs/pums/2017_2021ACS_PUMS_User_Guide.pdf">PUMS User
+Guide</a>.</p>
+<p>We have downloaded the PUMS data at the highest spatial resolution
+available: PUMA (Public Use Microdata Area), geographic units developed
+in the Decennial Census (here, 2010) of approximately 100,000 people per
+PUMA.</p>
+<pre><code>## Rows: 8 Columns: 2
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Variable, Explanation
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 5 Columns: 2
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): Variable, Explanation
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<table>
+<caption><span id="tab:nice-tab2">Table 5.2: </span><strong>Relevant PUMS Person Variables</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AGEP</td>
+<td align="left">Age</td>
+</tr>
+<tr class="even">
+<td align="left">SEX</td>
+<td align="left">Sex</td>
+</tr>
+<tr class="odd">
+<td align="left">ANC1P</td>
+<td align="left">Ancestry</td>
+</tr>
+<tr class="even">
+<td align="left">SCHL</td>
+<td align="left">Educational Status</td>
+</tr>
+<tr class="odd">
+<td align="left">SPORDER</td>
+<td align="left">Relationship to reference person</td>
+</tr>
+<tr class="even">
+<td align="left">HISP</td>
+<td align="left">Hispanic/Non-Hispanic</td>
+</tr>
+<tr class="odd">
+<td align="left">ID</td>
+<td align="left">Identification number</td>
+</tr>
+<tr class="even">
+<td align="left">SERIALNO</td>
+<td align="left">Housing unit/GQ person serial number</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab2">Table 5.2: </span><strong>Relevant PUMS Household Variables</strong></caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">SERIALNO</td>
+<td align="left">Housing unit/GQ person serial number</td>
+</tr>
+<tr class="even">
+<td align="left">TEN</td>
+<td align="left">Tenure (owned/rented?)</td>
+</tr>
+<tr class="odd">
+<td align="left">HINCP</td>
+<td align="left">Household income</td>
+</tr>
+<tr class="even">
+<td align="left">ADJINC</td>
+<td align="left">Adjusted household income</td>
+</tr>
+<tr class="odd">
+<td align="left">NP</td>
+<td align="left">Number of people in house</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="acs-and-pums-mapping" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> ACS and PUMS Mapping<a href="methods.html#acs-and-pums-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Because ACS and PUMS variables within tables differ, we create variable
+mappings between the two datasets for each table. Some mappings are more
+complex than others (like Ancestry and Hispanic/Latino(a) tables). All
+are made into factor variables with integers used to indicate
+categories. The following sections outline the mappings and factors
+created by constraint variable:</p>
+<p><strong>Age (B01001)</strong></p>
+<p>Age is a continuous variable in the PUMS dataset. We create age breaks
+at {0, 17, 24, 34, 44, 64, 200} and make a factor variable (1:6).</p>
+<p>Age is a categorical variable in the ACS dataset (as shown above). We
+use the following mapping to coerce the ACS data into 6 categories that
+will correspond to the PUMS breaks.</p>
+<table>
+<caption><span id="tab:nice-tab3">Table 5.3: </span><strong>B01001 Mapping</strong></caption>
+<colgroup>
+<col width="20%" />
+<col width="19%" />
+<col width="60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ACS Category</th>
+<th align="right">Recategorization</th>
+<th align="left">Corresponding PUMS Factor (continuous integer breaks)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Under 5 years</td>
+<td align="right">1</td>
+<td align="left">&lt;18</td>
+</tr>
+<tr class="even">
+<td align="left">5-9 years</td>
+<td align="right">1</td>
+<td align="left">&lt;18</td>
+</tr>
+<tr class="odd">
+<td align="left">10-14 years</td>
+<td align="right">1</td>
+<td align="left">&lt;18</td>
+</tr>
+<tr class="even">
+<td align="left">15-17 years</td>
+<td align="right">1</td>
+<td align="left">&lt;18</td>
+</tr>
+<tr class="odd">
+<td align="left">18 and 19 years</td>
+<td align="right">2</td>
+<td align="left">18-24</td>
+</tr>
+<tr class="even">
+<td align="left">20 years</td>
+<td align="right">2</td>
+<td align="left">18-24</td>
+</tr>
+<tr class="odd">
+<td align="left">21 years</td>
+<td align="right">2</td>
+<td align="left">18-24</td>
+</tr>
+<tr class="even">
+<td align="left">22-24 years</td>
+<td align="right">2</td>
+<td align="left">18-24</td>
+</tr>
+<tr class="odd">
+<td align="left">25-29 years</td>
+<td align="right">3</td>
+<td align="left">25-34</td>
+</tr>
+<tr class="even">
+<td align="left">30-34 years</td>
+<td align="right">3</td>
+<td align="left">25-34</td>
+</tr>
+<tr class="odd">
+<td align="left">35-39 years</td>
+<td align="right">4</td>
+<td align="left">35-44</td>
+</tr>
+<tr class="even">
+<td align="left">40-44 years</td>
+<td align="right">4</td>
+<td align="left">35-44</td>
+</tr>
+<tr class="odd">
+<td align="left">45-49 years</td>
+<td align="right">5</td>
+<td align="left">45-64</td>
+</tr>
+<tr class="even">
+<td align="left">50-54 years</td>
+<td align="right">5</td>
+<td align="left">45-64</td>
+</tr>
+<tr class="odd">
+<td align="left">55-59 years</td>
+<td align="right">5</td>
+<td align="left">45-64</td>
+</tr>
+<tr class="even">
+<td align="left">60 and 61 years</td>
+<td align="right">5</td>
+<td align="left">45-64</td>
+</tr>
+<tr class="odd">
+<td align="left">62-64 years</td>
+<td align="right">5</td>
+<td align="left">45-64</td>
+</tr>
+<tr class="even">
+<td align="left">65 and 66 years</td>
+<td align="right">6</td>
+<td align="left">65+</td>
+</tr>
+<tr class="odd">
+<td align="left">67-69 years</td>
+<td align="right">6</td>
+<td align="left">65+</td>
+</tr>
+<tr class="even">
+<td align="left">70-74 years</td>
+<td align="right">6</td>
+<td align="left">65+</td>
+</tr>
+<tr class="odd">
+<td align="left">75-79 years</td>
+<td align="right">6</td>
+<td align="left">65+</td>
+</tr>
+<tr class="even">
+<td align="left">80-84 years</td>
+<td align="right">6</td>
+<td align="left">65+</td>
+</tr>
+<tr class="odd">
+<td align="left">85 years and over</td>
+<td align="right">6</td>
+<td align="left">65+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sex (B01001)</strong></p>
+<p>The sex variable mappings do not require complex mappings (Male (1) and
+Female(2)).</p>
+<p><strong>Education (B15001)</strong></p>
+<p>The education ACS tables do not include the population under 18 years of
+age. In order for <strong>CO_BU.exe</strong> to function properly, the
+person-variables in the estimates_constraints.txt input need to sum to
+the respective total populations in the census tract. We complete the
+population for the education section of variables by calculating the
+remaining under 18 population (using B01001) and include this as a
+column in the education categories.</p>
+<table>
+<caption><span id="tab:nice-tab4">Table 5.4: </span><strong>B15001 Mapping</strong></caption>
+<colgroup>
+<col width="36%" />
+<col width="15%" />
+<col width="47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ACS Category</th>
+<th align="right">Recategorization</th>
+<th align="left">Corresponding PUMS Factor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">bb N/A (less than 3 years old)</td>
+</tr>
+<tr class="even">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">1 (No schooling completed)</td>
+</tr>
+<tr class="odd">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">2 (Nursery school, preschool)</td>
+</tr>
+<tr class="even">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">3 (Kindergarten )</td>
+</tr>
+<tr class="odd">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">4 (Grade 1)</td>
+</tr>
+<tr class="even">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">5 (Grade 2)</td>
+</tr>
+<tr class="odd">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">6 (Grade 3)</td>
+</tr>
+<tr class="even">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">7 (Grade 4)</td>
+</tr>
+<tr class="odd">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">8 (Grade 5)</td>
+</tr>
+<tr class="even">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">9 (Grade 6)</td>
+</tr>
+<tr class="odd">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">10 (Grade 7)</td>
+</tr>
+<tr class="even">
+<td align="left">Less than 9th grade</td>
+<td align="right">2</td>
+<td align="left">11 (Grade 8 )</td>
+</tr>
+<tr class="odd">
+<td align="left">6th to 12th grade no diploma</td>
+<td align="right">3</td>
+<td align="left">12 (Grade 9)</td>
+</tr>
+<tr class="even">
+<td align="left">7th to 12th grade no diploma</td>
+<td align="right">3</td>
+<td align="left">13 (Grade 10)</td>
+</tr>
+<tr class="odd">
+<td align="left">8th to 12th grade no diploma</td>
+<td align="right">3</td>
+<td align="left">14 (Grade 11)</td>
+</tr>
+<tr class="even">
+<td align="left">9th to 12th grade no diploma</td>
+<td align="right">3</td>
+<td align="left">15 (12th grade - no diploma)</td>
+</tr>
+<tr class="odd">
+<td align="left">High school graduate GED or alternative</td>
+<td align="right">4</td>
+<td align="left">16 (Regular high school diploma)</td>
+</tr>
+<tr class="even">
+<td align="left">High school graduate GED or alternative</td>
+<td align="right">4</td>
+<td align="left">17 (GED or alternative credential)</td>
+</tr>
+<tr class="odd">
+<td align="left">Some college no degree</td>
+<td align="right">5</td>
+<td align="left">18 (Some college, but less than 1 year)</td>
+</tr>
+<tr class="even">
+<td align="left">Some college no degree</td>
+<td align="right">5</td>
+<td align="left">19 (1 or more years of college credit, no degree)</td>
+</tr>
+<tr class="odd">
+<td align="left">Associate degree</td>
+<td align="right">5</td>
+<td align="left">20 (Associate’s degree)</td>
+</tr>
+<tr class="even">
+<td align="left">Bachelor degree</td>
+<td align="right">6</td>
+<td align="left">21 (Bachelor’s degree)</td>
+</tr>
+<tr class="odd">
+<td align="left">Graduate or professional degree</td>
+<td align="right">7</td>
+<td align="left">22 (Master’s degree)</td>
+</tr>
+<tr class="even">
+<td align="left">Graduate or professional degree</td>
+<td align="right">7</td>
+<td align="left">23 (Professional degree beyond a bachelor’s degree)</td>
+</tr>
+<tr class="odd">
+<td align="left">Graduate or professional degree</td>
+<td align="right">7</td>
+<td align="left">24 (Doctorate degree)</td>
+</tr>
+<tr class="even">
+<td align="left">Below 18 years Old</td>
+<td align="right">1</td>
+<td align="left">Not included in PUMS</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Householder Age and Household Income (B19037)</strong></p>
+<p>Mapping of householder age and household income variables requires
+setting breaks in PUMS variables (which are continuous integers) that
+correspond to the ACS categorical values for these variables.Note that
+householder age from B19037 contains fewer categories than householder
+age in B25007 (see next subsection).</p>
+<p>Additionally, note the added category in the ACS column for B19037
+Household Income Mapping. A column of all 0 values is included in the
+ACS inputs to the estimation_constraints.txt data file in order to
+provide mapping to the NAs included in the PUMS data.</p>
+<table>
+<caption><span id="tab:nice-tab5">Table 5.5: </span><strong>B19037 Householder Age Mapping</strong></caption>
+<colgroup>
+<col width="29%" />
+<col width="16%" />
+<col width="53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ACS Category</th>
+<th align="right">Recategorization</th>
+<th align="left">Corresponding PUMS Factor (continuous integer breaks)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Householder under 25 years</td>
+<td align="right">1</td>
+<td align="left">&lt;25</td>
+</tr>
+<tr class="even">
+<td align="left">Householder 25-44 years</td>
+<td align="right">2</td>
+<td align="left">25-44</td>
+</tr>
+<tr class="odd">
+<td align="left">Householder 45-64 years</td>
+<td align="right">3</td>
+<td align="left">45-64</td>
+</tr>
+<tr class="even">
+<td align="left">Householder 65 years and over</td>
+<td align="right">4</td>
+<td align="left">&gt;64</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab5">Table 5.5: </span><strong>B19037 Household Income Mapping</strong></caption>
+<colgroup>
+<col width="51%" />
+<col width="11%" />
+<col width="36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ACS Category</th>
+<th align="right">Recategorization</th>
+<th align="left">Corresponding PUMS Factor (continuous integer breaks)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Less than 10000</td>
+<td align="right">1</td>
+<td align="left">&lt;10000</td>
+</tr>
+<tr class="even">
+<td align="left">10000-14999</td>
+<td align="right">2</td>
+<td align="left">10000-14999</td>
+</tr>
+<tr class="odd">
+<td align="left">15000-19999</td>
+<td align="right">3</td>
+<td align="left">15000-19999</td>
+</tr>
+<tr class="even">
+<td align="left">20000-24999</td>
+<td align="right">4</td>
+<td align="left">20000-24999</td>
+</tr>
+<tr class="odd">
+<td align="left">25000-29999</td>
+<td align="right">5</td>
+<td align="left">25000-29999</td>
+</tr>
+<tr class="even">
+<td align="left">30000-34999</td>
+<td align="right">6</td>
+<td align="left">30000-34999</td>
+</tr>
+<tr class="odd">
+<td align="left">35000-39999</td>
+<td align="right">7</td>
+<td align="left">35000-39999</td>
+</tr>
+<tr class="even">
+<td align="left">40000-44999</td>
+<td align="right">8</td>
+<td align="left">40000-44999</td>
+</tr>
+<tr class="odd">
+<td align="left">45000-49999</td>
+<td align="right">9</td>
+<td align="left">45000-49999</td>
+</tr>
+<tr class="even">
+<td align="left">50000-59999</td>
+<td align="right">10</td>
+<td align="left">50000-59999</td>
+</tr>
+<tr class="odd">
+<td align="left">60000-74999</td>
+<td align="right">11</td>
+<td align="left">60000-74999</td>
+</tr>
+<tr class="even">
+<td align="left">75000-99999</td>
+<td align="right">12</td>
+<td align="left">75000-99999</td>
+</tr>
+<tr class="odd">
+<td align="left">100000-124999</td>
+<td align="right">13</td>
+<td align="left">100000-124999</td>
+</tr>
+<tr class="even">
+<td align="left">125000-149999</td>
+<td align="right">14</td>
+<td align="left">125000-149999</td>
+</tr>
+<tr class="odd">
+<td align="left">150000-199999</td>
+<td align="right">15</td>
+<td align="left">150000-199999</td>
+</tr>
+<tr class="even">
+<td align="left">200000 or more</td>
+<td align="right">16</td>
+<td align="left">&gt;=200000</td>
+</tr>
+<tr class="odd">
+<td align="left">NA (Created column where all rows == 0 to match number of PUMS categories)</td>
+<td align="right">17</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Householder Age and Tenure (B25007)</strong></p>
+<p>Mapping of householder tenure requires mapping multiple PUMS tenure
+categories to individual ACS categories. An additional category is also
+created for PUMS NA values, and a column of all 0 values is included in
+the ACS inputs to the estimation_constraints.txt data file in order to
+provide mapping to the NAs included in the PUMS data.</p>
+<p>Additionally, note the added category in the ACS column for B25007
+Household Tenure Mapping. A column of all 0 values is included in the
+ACS inputs to the estimation_constraints.txt data file in order to
+provide mapping to the NAs included in the PUMS data.</p>
+<table>
+<caption><span id="tab:nice-tab6">Table 5.6: </span><strong>B25007 Householder Age Mapping</strong></caption>
+<colgroup>
+<col width="29%" />
+<col width="16%" />
+<col width="53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ACS Category</th>
+<th align="right">Recategorization</th>
+<th align="left">Corresponding PUMS Factor (continuous integer breaks)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Householder 15-24 years</td>
+<td align="right">1</td>
+<td align="left">&lt;25</td>
+</tr>
+<tr class="even">
+<td align="left">Householder 25-34 years</td>
+<td align="right">2</td>
+<td align="left">25-34</td>
+</tr>
+<tr class="odd">
+<td align="left">Householder 35-44 years</td>
+<td align="right">3</td>
+<td align="left">35-44</td>
+</tr>
+<tr class="even">
+<td align="left">Householder 45-54 years</td>
+<td align="right">4</td>
+<td align="left">45-54</td>
+</tr>
+<tr class="odd">
+<td align="left">Householder 55-59 years</td>
+<td align="right">5</td>
+<td align="left">55-59</td>
+</tr>
+<tr class="even">
+<td align="left">Householder 60-64 years</td>
+<td align="right">6</td>
+<td align="left">60-64</td>
+</tr>
+<tr class="odd">
+<td align="left">Householder 65-74 years</td>
+<td align="right">7</td>
+<td align="left">65-74</td>
+</tr>
+<tr class="even">
+<td align="left">Householder 75-84 years</td>
+<td align="right">8</td>
+<td align="left">75-84</td>
+</tr>
+<tr class="odd">
+<td align="left">Householder 85 years and over</td>
+<td align="right">9</td>
+<td align="left">&gt;-85</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:nice-tab6">Table 5.6: </span><strong>B25007 Household Tenure Mapping</strong></caption>
+<colgroup>
+<col width="49%" />
+<col width="11%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">ACS Category</th>
+<th align="right">Recategorization</th>
+<th align="left">Corresponding PUMS Factor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Owner occupied</td>
+<td align="right">1</td>
+<td align="left">1 (Owned with mortgage or loan (include home equity loans))</td>
+</tr>
+<tr class="even">
+<td align="left">Owner occupied</td>
+<td align="right">1</td>
+<td align="left">2 (Owned free and clear)</td>
+</tr>
+<tr class="odd">
+<td align="left">Renter occupied</td>
+<td align="right">2</td>
+<td align="left">3 (Rented)</td>
+</tr>
+<tr class="even">
+<td align="left">Renter occupied</td>
+<td align="right">2</td>
+<td align="left">4 (Occupied without payment of rent)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA (Created column where all rows == 0 to match number of PUMS categories)</td>
+<td align="right">3</td>
+<td align="left">N/A (GQ/vacant)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="the-code" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> The Code:<a href="methods.html#the-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Attention: Before you begin -</em> clone or download the following GitHub
+Repository: <a href="https://github.com/Flannery-BIng/synth_pop" class="uri">https://github.com/Flannery-BIng/synth_pop</a></p>
+<p>In this repository, you will see two subfolders:</p>
+<ul>
+<li><p>ACRESr</p></li>
+<li><p>CO_BU</p></li>
+</ul>
+<p>All R scripts are within the ACRESr folder and all Fortran scripts are
+within the CO_BU folder. Where possible, we have provided example output
+files and the folder and subfolder structures that will allow you to
+reproduce our code output.</p>
+<div id="puma-data" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> 1. PUMA data<a href="methods.html#puma-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Step 1. Download housing and person level PUMA data here:</strong></p>
+<p><a href="https://data.census.gov/app/mdat/ACSPUMS5Y2021" class="uri">https://data.census.gov/app/mdat/ACSPUMS5Y2021</a></p>
+<p><em>Make sure you select the PUMA variables listed above (see section
+titled <strong>PUMS data</strong>).</em></p>
+<p><strong>Step 2. Place the PUMA data in a subfolder of the ACRESr project
+directory titled ACS_PUMS</strong></p>
+</div>
+<div id="prepare-acs-data-for-co-model" class="section level3 hasAnchor" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> 2. Prepare ACS data for CO model<a href="methods.html#prepare-acs-data-for-co-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section details the R project structure (hereafter referred to as
+ACRESr.proj) implemented prior to running <strong>CO_BU.exe</strong>.<br />
+</p>
+<p><strong>Step 1. Pulling ACS Data.</strong> Run the following code (only need to run
+1x): <strong>[ACS] - 0 - Grab ACS Data.R</strong></p>
+<p>Objectives:</p>
+<ul>
+<li><p>Pull all raw census data using census API calls.</p></li>
+<li><p>Provide census API key.</p></li>
+<li><p>Pull all custom functions (custom-functions.R).</p></li>
+<li><p>Define the PUMAs with census tracts to be included in each.</p></li>
+<li><p>Run through each individual file that pulls data:</p>
+<ul>
+<li><strong>[ACS] - 0 - i - Ancestry.R</strong>
+<ul>
+<li>This script uses a reweight function (process_puma) to get
+the totals to align with the totals for other categories.</li>
+<li>This script also uses a grab_top_i_percent function to
+collapse the number of categories to those contributing at
+least i% of the total population.<br />
+</li>
+</ul></li>
+<li><strong>[ACS] - 0 - i - Hispanic and Latino.R</strong>
+<ul>
+<li>This script also uses a grab_top_i_percent function to
+collapse the number of categories to those contributing at
+least i% of the total population.<br />
+</li>
+</ul></li>
+<li><strong>[ACS] - 0 - ii - Sex and Age.R</strong></li>
+<li><strong>[ACS] - 0 - iii - Education.R</strong></li>
+<li><strong>[ACS] - 0 - iv - HHage and HHincome.R</strong></li>
+<li><strong>[ACS] - 0 - v - HHage and Tenure.R</strong></li>
+</ul></li>
+</ul>
+<p><strong>Step 2. Output Estimation Constraints and Area List.</strong> Run the
+following code (run 1x per PUMA, adjusting inputs for lines 16-18):<strong><br />
+[ACS] - 1 - combine all.R</strong></p>
+<p>Objectives:</p>
+<ul>
+<li>For a given PUMA and its corresponding tracts, pull ACS columns into
+a table (estimation_constraints) and list all tracts (Area_list).</li>
+</ul>
+<p>To do after running:</p>
+<ul>
+<li><p>Copy output from this script into CO_BU/Data.</p></li>
+<li><p>Copy printed output for calc_pearson.xlsx, and then take the
+resulting excel column and paste into the
+constraining_tables_info.txt file in CO_BU/Data.</p></li>
+<li><p>Go to MA census tract data/ancestry - hispanic B03001/ and copy the
+resulting hispanic mapping files into the script [PUMS] - 1 - i -
+Create Ancestry and Hispanic and Latino Mappings.R</p></li>
+<li><p>Go to MA census tract data/ancestry B04006/ and copy the resulting
+ancestry mapping files into the script [PUMS] - 1 - i - Create
+Ancestry and Hispanic and Latino Mappings.R</p></li>
+</ul>
+<p><strong>Step 3. Create Mapped Person and Mapped House files using PUMS data.</strong>
+Run the following code: <strong>[PUMS] - 1 - Read in PUMS data.R</strong> (run 1x per
+PUMA, adjusting lines 39 and 40).</p>
+<p>Objectives:</p>
+<ul>
+<li><p>For a given PUMA, produce person and household inputs using the
+PUMA, subset to the variables corresponding to those provided in the
+ACS table constraints used.</p>
+<ul>
+<li>This code runs all four [PUMS] scripts, creating mappings with
+<strong>[PUMS] - 1 - i - Create Ancestry and Hispanic and Latino
+Mappings.R</strong>, grabbing person data in <strong>[PUMS] - 1 - ii - person
+data.R</strong>, household data in <strong>[PUMS] - 1 - iii - house data.R</strong>,
+and finally creating the output files in <strong>[PUMS] - 1 - iv -
+convert PUMS to CO.R</strong></li>
+</ul></li>
+</ul>
+<p>To do after running:</p>
+<ul>
+<li>Copy the mapped_person, mapped_house, and house_serials text files
+from the ACRESr output folder into CO_BU/Data.</li>
+</ul>
+</div>
+<div id="bring-into-the-co-model" class="section level3 hasAnchor" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> 3. Bring into the CO model<a href="methods.html#bring-into-the-co-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="prepare-data" class="section level4 hasAnchor" number="5.5.3.1">
+<h4><span class="header-section-number">5.5.3.1</span> Prepare Data<a href="methods.html#prepare-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As described in the R Code, you should have the following files in
+CO_BU/Data, as listed in CO_filelist.txt (each with the PUMA indicated
+at the end of the file name, except for CO_random_seednumbers.txt as
+this does not need to change).</p>
+<ol style="list-style-type: decimal">
+<li><p>‘Data/mapped_house_PUMA.txt’</p></li>
+<li><p>‘Data/mapped_person_PUMA.txt’</p></li>
+<li><p>‘Data/estimation_constraints_PUMA.txt’</p></li>
+<li><p>‘Data/Area_list_PUMA.txt’</p></li>
+<li><p>‘Data/constraining_tables_info_PUMA.txt’</p></li>
+<li><p>‘Data/control_parameters_PUMA.txt’</p>
+<ul>
+<li>Correct line 3 to reflect the name of the folders where you
+would like the output from CO_BU run to go (see within Estimates
+and Estimate_Fit). Suggested label: PUMA#.</li>
+<li>Correct lines 7 and 8 to reflect the number of constraint cells
+(line 7) (see calc_pearson.xlsx for this) and the number of
+constraint cells scaled by 10x (line 8).</li>
+</ul></li>
+<li><p>‘Data/CO_random_seednumbers.txt’</p></li>
+</ol>
+</div>
+<div id="run-co_bu.exe" class="section level4 hasAnchor" number="5.5.3.2">
+<h4><span class="header-section-number">5.5.3.2</span> Run CO_BU.exe<a href="methods.html#run-co_bu.exe" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the terminal, with the directory set to the co-bu-mac folder, run the
+following:</p>
+<ol style="list-style-type: decimal">
+<li><p>The make file, make.sh using the code:</p>
+<p>cd Code</p>
+<p>sh make.sh</p></li>
+<li><p>Then, in order to run the executable (should see the executable has
+been created in the co-bu-mac folder):</p>
+<p>cd ..</p>
+<p>codesign -s - CO_BU</p>
+<p><a href="https://eclecticlight.co/2020/08/22/apple-silicon-macs-will-require-signed-code/">Why codesign? See here for
+explanation.</a></p></li>
+<li><p>Run the executable:</p>
+<p>co-bu-mac % ./CO_BU</p></li>
+</ol>
+</div>
+<div id="read-the-output-and-check-error" class="section level4 hasAnchor" number="5.5.3.3">
+<h4><span class="header-section-number">5.5.3.3</span> Read the output and check error<a href="methods.html#read-the-output-and-check-error" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p>Run [RESULTS] - Read CO output.R:</p>
+<p>Calls on each of the individual PUMAs and saves the output from the
+executable for each as an ‘.rds’ file.</p></li>
+<li><p>Run [RESULTS] - 2 - Check OTAE.R:</p></li>
+</ol>
+<p>Overall total average error (OTAE): To check the overall total average
+errors, run this code which pulls all OTAE per household estimates by
+PUMA and produces a boxplot of the distribution of error by PUMA.</p>
+</div>
+</div>
+<div id="create-parcel-level-synthetic-population" class="section level3 hasAnchor" number="5.5.4">
+<h3><span class="header-section-number">5.5.4</span> 4. Create parcel-level synthetic population<a href="methods.html#create-parcel-level-synthetic-population" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Parcel data can be sourced from state-websites. For Massachusetts, this
+is a shapefile with a range of available variables <span class="citation">(<a href="#ref-massgis_parcels">Geographic Information 2025</a>)</span>.
+Before we can proceed with the matching algorithm, we need to do some
+data preparation.</p>
+<div id="parcel-centroids-and-pumas" class="section level4 hasAnchor" number="5.5.4.1">
+<h4><span class="header-section-number">5.5.4.1</span> Parcel centroids and PUMAs<a href="methods.html#parcel-centroids-and-pumas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Find the centroids of parcels (we did this in GIS, could also do this in
+R).</p>
+<p><strong>01 - [SYNTHPOP] - Joining parcels-tracts-pumas.R</strong></p>
+<ul>
+<li>Joins the geometries (tract to PUMA, parcel centroid to tract)</li>
+</ul>
+</div>
+<div id="imputation" class="section level4 hasAnchor" number="5.5.4.2">
+<h4><span class="header-section-number">5.5.4.2</span> Imputation<a href="methods.html#imputation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Conduct any necessary imputation on parcel data and synthetic population
+data. Example code for imputation of synthetic population data is
+available here:</p>
+<p><strong>02 - [SYNTHPOP] - Impute Synthpop.R</strong></p>
+</div>
+<div id="downscale-from-tract-level-to-parcel-level" class="section level4 hasAnchor" number="5.5.4.3">
+<h4><span class="header-section-number">5.5.4.3</span> Downscale from tract-level to parcel-level<a href="methods.html#downscale-from-tract-level-to-parcel-level" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To downscale further, we need additional data. For this project, we used
+the MassGIS Property Tax Parcels dataset <span class="citation">(<a href="#ref-massgis_parcels">Geographic Information 2025</a>)</span>. The key
+variables used from this dataset for this step were:</p>
+<ul>
+<li>Number of rooms</li>
+<li>Year Built</li>
+<li>Total value</li>
+</ul>
+<p>We conduct the matching and random allocation in the final ‘synthpop’
+code file:</p>
+<p><strong>03 - [SYNTHPOP] - Expand MassGIS-Tract to Parcel.R</strong></p>
+
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-massgis_parcels" class="csl-entry">
+Geographic Information, Massachusetts Bureau of. 2025. <span>“<span>MassGIS</span> <span>Data:</span> <span>Property</span> <span>Tax</span> <span>Parcels</span>.”</span> <a href="https://www.mass.gov/info-details/massgis-data-property-tax-parcels">https://www.mass.gov/info-details/massgis-data-property-tax-parcels</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="literature.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/03-method.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["my-book.pdf", "my-book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
