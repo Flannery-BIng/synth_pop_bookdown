@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ACRES Synthetic Population</title>
+  <meta name="description" content="Code and methods for reproducing synthetic population work from ’A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations`" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="ACRES Synthetic Population" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Code and methods for reproducing synthetic population work from ’A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations`" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ACRES Synthetic Population" />
+  
+  <meta name="twitter:description" content="Code and methods for reproducing synthetic population work from ’A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations`" />
+  
+
+
+
+<meta name="date" content="2025-08-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="prerequisites.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ACRES Synthetic Population</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations</a></li>
+<li class="chapter" data-level="2" data-path="prerequisites.html"><a href="prerequisites.html"><i class="fa fa-check"></i><b>2</b> Prerequisites</a></li>
+<li class="chapter" data-level="3" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intro.html"><a href="intro.html#project-objectives"><i class="fa fa-check"></i><b>3.1</b> Project Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="intro.html"><a href="intro.html#previous-work-from-busph"><i class="fa fa-check"></i><b>3.2</b> Previous work from BUSPH</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>4</b> Literature</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="literature.html"><a href="literature.html#popgen"><i class="fa fa-check"></i><b>4.1</b> PopGen</a></li>
+<li class="chapter" data-level="4.2" data-path="literature.html"><a href="literature.html#popsynwin"><i class="fa fa-check"></i><b>4.2</b> PopSynWin</a></li>
+<li class="chapter" data-level="4.3" data-path="literature.html"><a href="literature.html#synthpop-r"><i class="fa fa-check"></i><b>4.3</b> synthpop R</a></li>
+<li class="chapter" data-level="4.4" data-path="literature.html"><a href="literature.html#simpop-r"><i class="fa fa-check"></i><b>4.4</b> simPop R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>5</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="methods.html"><a href="methods.html#geographic-area"><i class="fa fa-check"></i><b>5.1</b> Geographic area</a></li>
+<li class="chapter" data-level="5.2" data-path="methods.html"><a href="methods.html#acs-constraint-tables"><i class="fa fa-check"></i><b>5.2</b> ACS constraint tables</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="methods.html"><a href="methods.html#raceethnicity"><i class="fa fa-check"></i><b>5.2.1</b> Race/Ethnicity</a></li>
+<li class="chapter" data-level="5.2.2" data-path="methods.html"><a href="methods.html#sex-and-age"><i class="fa fa-check"></i><b>5.2.2</b> Sex and Age</a></li>
+<li class="chapter" data-level="5.2.3" data-path="methods.html"><a href="methods.html#education"><i class="fa fa-check"></i><b>5.2.3</b> Education</a></li>
+<li class="chapter" data-level="5.2.4" data-path="methods.html"><a href="methods.html#householder-age-and-household-income"><i class="fa fa-check"></i><b>5.2.4</b> Householder Age and Household Income</a></li>
+<li class="chapter" data-level="5.2.5" data-path="methods.html"><a href="methods.html#householder-age-and-tenure"><i class="fa fa-check"></i><b>5.2.5</b> Householder Age and Tenure</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="methods.html"><a href="methods.html#pums-data"><i class="fa fa-check"></i><b>5.3</b> PUMS data</a></li>
+<li class="chapter" data-level="5.4" data-path="methods.html"><a href="methods.html#acs-and-pums-mapping"><i class="fa fa-check"></i><b>5.4</b> ACS and PUMS Mapping</a></li>
+<li class="chapter" data-level="5.5" data-path="methods.html"><a href="methods.html#the-code"><i class="fa fa-check"></i><b>5.5</b> The Code:</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="methods.html"><a href="methods.html#puma-data"><i class="fa fa-check"></i><b>5.5.1</b> 1. PUMA data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="methods.html"><a href="methods.html#prepare-acs-data-for-co-model"><i class="fa fa-check"></i><b>5.5.2</b> 2. Prepare ACS data for CO model</a></li>
+<li class="chapter" data-level="5.5.3" data-path="methods.html"><a href="methods.html#bring-into-the-co-model"><i class="fa fa-check"></i><b>5.5.3</b> 3. Bring into the CO model</a></li>
+<li class="chapter" data-level="5.5.4" data-path="methods.html"><a href="methods.html#create-parcel-level-synthetic-population"><i class="fa fa-check"></i><b>5.5.4</b> 4. Create parcel-level synthetic population</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="application.html"><a href="application.html"><i class="fa fa-check"></i><b>6</b> Application</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="application.html"><a href="application.html#use-case-proximity-to-major-roadway"><i class="fa fa-check"></i><b>6.1</b> Use-case: proximity to major roadway</a></li>
+<li class="chapter" data-level="6.2" data-path="application.html"><a href="application.html#hypothetical-health-impact-assessment"><i class="fa fa-check"></i><b>6.2</b> Hypothetical health impact assessment</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ACRES Synthetic Population</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">ACRES Synthetic Population</h1>
+<p class="date"><em>2025-08-27</em></p>
+</div>
+<div id="a-novel-method-for-generating-spatially-resolved-synthetic-populations-for-health-impact-assessments-in-vulnerable-populations" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> A Novel Method for Generating Spatially Resolved Synthetic Populations for Health Impact Assessments in Vulnerable Populations<a href="index.html#a-novel-method-for-generating-spatially-resolved-synthetic-populations-for-health-impact-assessments-in-vulnerable-populations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Flannery Black-Ingersoll<sup>1</sup>, Chad W. Milando<sup>1</sup>, Zach Popp<sup>1</sup>, Mariangelí Echevarría-Ramos<sup>2</sup>, M. Patricia Fabian<sup>1,3</sup>, Amruta Nori-Sarma<sup>4,5</sup>, and Jonathan I. Levy<sup>1</sup></p>
+<p>1 Department of Environmental Health, Boston University School of Public Health, 715 Albany St, Boston, MA 02118, US</p>
+<p>2 Mystic River Watershed Association, 23 Maple Street, Arlington, MA 02746, US</p>
+<p>3 Institute for Global Sustainability, Boston University, 111 Cummington Mall Suite 149, Boston, MA 02215, US</p>
+<p>4 Department of Environmental Health, Harvard T.H. Chan School of Public Health, 677 Huntington Ave, Boston, MA 02115, US</p>
+<p>5 Center for Climate, Health, and the Global Environment (C-CHANGE), Harvard T.H. Chan School of Public Health, 677 Huntington Ave, Boston, MA 02115, US</p>
+<p>Corresponding author: Flannery Black-Ingersoll (<a href="mailto:fblackin@bu.edu">fblackin@bu.edu</a>)</p>
+<p>Senior corresponding author: Jonathan I. Levy (<a href="mailto:jonlevy@bu.edu">jonlevy@bu.edu</a>)</p>
+<p><strong>The code and methods described in this article are outlined in further detail in this R bookdown document. The code is provided in the github repository here: <a href="https://github.com/Flannery-BIng/synth_pop" class="uri">https://github.com/Flannery-BIng/synth_pop</a>.</strong></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="prerequisites.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["my-book.pdf", "my-book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
